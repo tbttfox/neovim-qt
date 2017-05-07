@@ -587,6 +587,7 @@ void Shell::keyPressEvent(QKeyEvent *ev)
 		return;
 	}
 
+	qWarning() << "keypress" << inp;
 	m_nvim->neovimObject()->vim_input(m_nvim->encode(inp));
 	// FIXME: bytes might not be written, and need to be buffered
 }
@@ -869,6 +870,8 @@ void Shell::inputMethodEvent(QInputMethodEvent *ev)
 {
 	if ( !ev->commitString().isEmpty() ) {
 		QByteArray s = m_nvim->encode(ev->commitString());
+
+		qWarning() << "inputmethod" << s;
 		m_nvim->neovimObject()->vim_input(s);
 		tooltip("");
 	} else {
