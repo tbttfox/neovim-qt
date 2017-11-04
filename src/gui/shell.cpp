@@ -195,6 +195,7 @@ void Shell::init()
 	int64_t height = screenRect.height()*0.66/cellSize().height();
 	QVariantMap options;
 	options.insert("ext_tabline", true);
+	options.insert("ext_cmdline", true);
 	options.insert("rgb", true);
 
 	MsgpackRequest *req;
@@ -456,6 +457,50 @@ void Shell::handleRedraw(const QByteArray& name, const QVariantList& opargs)
 		}
 
 		emit neovimTablineUpdate(curtab, tabs);
+	} else if (name == "cmdline_show") {
+		if (opargs.size() < 6) {
+			qWarning() << "Unexpected argument for cmdline_show:" << opargs;
+			return;
+		}
+
+		// - content
+		// - pos
+		// - firstc
+		// - prompt
+		// - indent
+		// - level
+		qDebug() << "cmdline_show" << opargs;
+	} else if (name == "cmdline_pos") {
+		if (opargs.size() < 2 || !opargs.at(0).canConvert<int64_t>()
+				|| !opargs.at(1).canConvert<int64_t>()) {
+			qWarning() << "Unexpected argument for cmdline_pos:" << opargs;
+			return;
+		}
+		int64_t pos = opargs.at(0).toInt();
+		int64_t level = opargs.at(1).toInt();
+	} else if (name == "cmdline_special_char") {
+		// - c
+		// - shift
+		// - level
+		qDebug() << "cmdline_special_char" << opargs;
+	} else if (name == "cmdline_hide") {
+		//handleCmdlineHide();
+	} else if (name == "cmdline_block_show") {
+		if (opargs.size() < 1) {
+			qWarning() << "Unexpected argument for cmdline_block_show:" << opargs;
+			return;
+		}
+		// - lines
+		qDebug() << "cmdline_block_show" << opargs;
+	} else if (name == "cmdline_block_append") {
+		if (opargs.size() < 1) {
+			qWarning() << "Unexpected argument for cmdline_block_append:" << opargs;
+			return;
+		}
+		qDebug() << "cmdline_block_append" << opargs;
+		// - line
+	} else if (name == "cmdline_block_hide") {
+		//handleCmdlineBlockHide();
 	} else {
 		qDebug() << "Received unknown redraw notification" << name << opargs;
 	}
