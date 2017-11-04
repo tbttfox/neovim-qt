@@ -490,6 +490,8 @@ void Shell::handleRedraw(const QByteArray& name, const QVariantList& opargs)
 
 }
 
+/// Show the pum, with the given items, selecting the given item (idx)
+/// and place the pum at the given row/col
 void Shell::handlePopupMenuShow(const QVariantList& items,
 			int64_t selected, int64_t row, int64_t col)
 {
