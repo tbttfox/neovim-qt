@@ -43,7 +43,6 @@ Shell::Shell(NeovimConnector *nvim, QWidget *parent)
 
 	// PUM
 	m_pum.setParent(this);
- 	m_pum.setFocusPolicy(Qt::NoFocus); 
 	m_pum.hide();
 
 	if (m_nvim == NULL) {

@@ -8,6 +8,7 @@ namespace NeovimQt {
 PopupMenu::PopupMenu(QWidget *parent)
 :QListWidget(parent)
 {
+	setFocusPolicy(Qt::NoFocus);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
