@@ -463,7 +463,7 @@ void Shell::handleRedraw(const QByteArray& name, const QVariantList& opargs)
 			return;
 		}
 
-		// FIXME: missing content
+		QVariantList content = opargs.at(0).toList();
 
 		if (!opargs.at(1).canConvert<int64_t>()) {
 			qWarning() << "Invalid type for cmdline_show pos:" << opargs.at(1);
@@ -495,7 +495,7 @@ void Shell::handleRedraw(const QByteArray& name, const QVariantList& opargs)
 		}
 		int64_t level = opargs.at(5).toInt();
 
-		qDebug() << name << "FIXME: content" << pos << firstc << prompt << indent << level;
+		handleCmdlineShow(content, pos, firstc, prompt, indent, level);
 	} else if (name == "cmdline_pos") {
 		if (opargs.size() < 2 || !opargs.at(0).canConvert<int64_t>()
 				|| !opargs.at(1).canConvert<int64_t>()) {
@@ -1159,6 +1159,15 @@ void Shell::openFiles(QList<QUrl> urls)
 		// Neovim cannot open urls now. Store them to open later.
 		m_deferredOpen.append(urls);
 	}
+}
+
+void Shell::handleCmdlineShow(QVariantList content, int64_t pos, QString firstc,
+			QString prompt, int64_t indent, int64_t level)
+{
+	foreach(QVariant piece, content) {
+		qDebug() << piece.toList();
+	}
+	qDebug() << prompt << firstc;
 }
 
 } // Namespace

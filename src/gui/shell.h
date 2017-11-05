@@ -104,6 +104,8 @@ protected:
 	virtual void handleSetTitle(const QVariantList& opargs);
 	virtual void handleSetScrollRegion(const QVariantList& opargs);
 	virtual void handleBusy(bool);
+	virtual void handleCmdlineShow(QVariantList content, int64_t pos, QString firstc,
+			QString prompt, int64_t indent, int64_t level);
 
 	void neovimMouseEvent(QMouseEvent *ev);
 	virtual void mousePressEvent(QMouseEvent *ev) Q_DECL_OVERRIDE;
