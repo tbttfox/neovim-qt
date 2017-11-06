@@ -9,6 +9,7 @@ PopupMenu::PopupMenu(QWidget *parent)
 :QListWidget(parent)
 {
 	setFocusPolicy(Qt::NoFocus);
+	setAttribute(Qt::WA_TransparentForMouseEvents);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
